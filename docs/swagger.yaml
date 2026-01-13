@@ -1,0 +1,3473 @@
+basePath: /api
+definitions:
+  agregados.DocumentAggregate:
+    properties:
+      documents:
+        items:
+          $ref: '#/definitions/entities.Document'
+        type: array
+      ownerID:
+        type: string
+      ownerType:
+        $ref: '#/definitions/vos.DocumentOwnerType'
+    type: object
+  agregados.EmployeeAggregate:
+    properties:
+      dependents:
+        items:
+          $ref: '#/definitions/entities.Dependent'
+        type: array
+      documents:
+        items:
+          $ref: '#/definitions/entities.Document'
+        type: array
+      educationHistories:
+        items:
+          $ref: '#/definitions/entities.EducationHistory'
+        type: array
+      employee:
+        $ref: '#/definitions/entities.Employee'
+      statuses:
+        items:
+          $ref: '#/definitions/entities.EmployeeStatus'
+        type: array
+      supervisorHistory:
+        items:
+          $ref: '#/definitions/entities.SupervisorHistory'
+        type: array
+      workHistories:
+        items:
+          $ref: '#/definitions/entities.WorkHistory'
+        type: array
+    type: object
+  agregados.LocationAggregate:
+    properties:
+      districts:
+        items:
+          $ref: '#/definitions/entities.District'
+        type: array
+      municipalities:
+        items:
+          $ref: '#/definitions/entities.Municipality'
+        type: array
+      province:
+        $ref: '#/definitions/entities.Province'
+    type: object
+  agregados.OrgStructureAggregate:
+    properties:
+      department:
+        $ref: '#/definitions/entities.Department'
+      employees:
+        items:
+          $ref: '#/definitions/entities.Employee'
+        type: array
+      positions:
+        items:
+          $ref: '#/definitions/entities.Position'
+        type: array
+    type: object
+  dtos.AreaEstudoResponseDTO:
+    properties:
+      created_at:
+        type: string
+      descricao:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.CreateAreaEstudoDTO:
+    properties:
+      descricao:
+        maxLength: 255
+        minLength: 5
+        type: string
+      nome:
+        maxLength: 100
+        minLength: 3
+        type: string
+    required:
+    - descricao
+    - nome
+    type: object
+  dtos.CreateDepartmentDTO:
+    properties:
+      nome:
+        maxLength: 100
+        minLength: 2
+        type: string
+    required:
+    - nome
+    type: object
+  dtos.CreateDependentDTO:
+    properties:
+      date_of_birth:
+        type: string
+      employee_id:
+        type: string
+      full_name:
+        maxLength: 100
+        minLength: 3
+        type: string
+      gender:
+        enum:
+        - male
+        - female
+        - other
+        type: string
+      relationship:
+        enum:
+        - child
+        - spouse
+        - parent
+        - other
+        type: string
+    required:
+    - date_of_birth
+    - employee_id
+    - full_name
+    - gender
+    - relationship
+    type: object
+  dtos.CreateDistritoDTO:
+    properties:
+      municipio_id:
+        type: string
+      nome:
+        maxLength: 100
+        minLength: 2
+        type: string
+    required:
+    - municipio_id
+    - nome
+    type: object
+  dtos.CreateEducationDTO:
+    properties:
+      degree:
+        maxLength: 50
+        minLength: 2
+        type: string
+      description:
+        maxLength: 255
+        type: string
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      field_of_study:
+        type: string
+      institution:
+        maxLength: 100
+        minLength: 3
+        type: string
+      start_date:
+        type: string
+    required:
+    - degree
+    - employee_id
+    - end_date
+    - field_of_study
+    - institution
+    - start_date
+    type: object
+  dtos.CreateEmployeeDTO:
+    properties:
+      address:
+        maxLength: 200
+        minLength: 5
+        type: string
+      bi:
+        type: string
+      contract_type:
+        enum:
+        - permanent
+        - temporary
+        - intern
+        - consultant
+        type: string
+      date_of_birth:
+        type: string
+      department_id:
+        type: string
+      district_id:
+        type: string
+      email:
+        type: string
+      full_name:
+        maxLength: 100
+        minLength: 3
+        type: string
+      gender:
+        enum:
+        - masculino
+        - feminino
+        type: string
+      hiring_date:
+        type: string
+      iban:
+        maxLength: 34
+        minLength: 10
+        type: string
+      marital_status:
+        enum:
+        - single
+        - married
+        - divorced
+        - widowed
+        type: string
+      nationality:
+        maxLength: 50
+        minLength: 2
+        type: string
+      phone_number:
+        type: string
+      position_id:
+        type: string
+      salary:
+        type: number
+      social_security:
+        maxLength: 12
+        minLength: 6
+        type: string
+      supervisor_id:
+        type: string
+    required:
+    - address
+    - bi
+    - contract_type
+    - date_of_birth
+    - department_id
+    - district_id
+    - email
+    - full_name
+    - gender
+    - hiring_date
+    - iban
+    - marital_status
+    - nationality
+    - phone_number
+    - position_id
+    - salary
+    - social_security
+    type: object
+  dtos.CreateEmployeeStatusDTO:
+    properties:
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      reason:
+        maxLength: 255
+        type: string
+      start_date:
+        type: string
+      status:
+        enum:
+        - active
+        - suspended
+        - terminated
+        - retired
+        type: string
+    required:
+    - employee_id
+    - start_date
+    - status
+    type: object
+  dtos.CreateMunicipioDoc:
+    properties:
+      nome:
+        type: string
+      provincia_id:
+        type: string
+    type: object
+  dtos.CreatePositionDTO:
+    properties:
+      department_id:
+        type: string
+      nome:
+        maxLength: 100
+        minLength: 2
+        type: string
+    required:
+    - department_id
+    - nome
+    type: object
+  dtos.CreateProvinceDoc:
+    properties:
+      nome:
+        description: |-
+          Nome da Província
+          example: Luanda
+        example: Luanda
+        type: string
+    type: object
+  dtos.CreateSupervisorDTO:
+    properties:
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      start_date:
+        type: string
+      supervisor_id:
+        description: agora opcional
+        type: string
+    required:
+    - employee_id
+    - start_date
+    type: object
+  dtos.CreateWorkDTO:
+    properties:
+      company:
+        maxLength: 100
+        minLength: 2
+        type: string
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      position:
+        maxLength: 100
+        minLength: 2
+        type: string
+      responsibilities:
+        maxLength: 500
+        type: string
+      start_date:
+        type: string
+    required:
+    - company
+    - employee_id
+    - position
+    - start_date
+    type: object
+  dtos.DepartmentResponseDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.DependentResponseDTO:
+    properties:
+      created_at:
+        type: string
+      date_of_birth:
+        type: string
+      employee_id:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      relationship:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.DistritoResponseDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      municipio_id:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.DistritoResultDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      municipio_id:
+        type: string
+      municipio_nome:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.DocumentResponseDTO:
+    properties:
+      file_url:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      owner_id:
+        type: string
+      owner_type:
+        type: string
+      type:
+        type: string
+      uploaded_at:
+        type: string
+    type: object
+  dtos.EducationResponseDTO:
+    properties:
+      created_at:
+        type: string
+      degree:
+        type: string
+      description:
+        type: string
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      field_of_study:
+        type: string
+      id:
+        type: string
+      institution:
+        type: string
+      start_date:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.EmployeeResponseDTO:
+    properties:
+      address:
+        type: string
+      bi:
+        type: string
+      contract_type:
+        type: string
+      created_at:
+        type: string
+      date_of_birth:
+        type: string
+      department_id:
+        type: string
+      district_id:
+        type: string
+      email:
+        type: string
+      employee_number:
+        type: integer
+      full_name:
+        type: string
+      gender:
+        type: string
+      hiring_date:
+        type: string
+      iban:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      marital_status:
+        type: string
+      nationality:
+        type: string
+      phone_number:
+        type: string
+      position_id:
+        type: string
+      salary:
+        type: number
+      social_security:
+        type: string
+      supervisor_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.EmployeeStatusResponseDTO:
+    properties:
+      created_at:
+        type: string
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      id:
+        type: string
+      reason:
+        type: string
+      start_date:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.MunicipioResponseDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      provincia_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.MunicipioResultDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      provincia_id:
+        type: string
+      provincia_nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.PositionResponseDTO:
+    properties:
+      created_at:
+        type: string
+      department_id:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.PositionResultDTO:
+    properties:
+      created_at:
+        type: string
+      department_id:
+        type: string
+      department_nome:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.ProvinceResponseDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.SupervisorResponseDTO:
+    properties:
+      created_at:
+        type: string
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      id:
+        type: string
+      start_date:
+        type: string
+      supervisor_id:
+        description: opcional
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dtos.UpdateAreaEstudoDTO:
+    properties:
+      descricao:
+        maxLength: 255
+        minLength: 5
+        type: string
+      nome:
+        maxLength: 100
+        minLength: 3
+        type: string
+    type: object
+  dtos.UpdateDepartmentDTO:
+    properties:
+      nome:
+        maxLength: 100
+        minLength: 2
+        type: string
+    type: object
+  dtos.UpdateDependentDTO:
+    properties:
+      date_of_birth:
+        type: string
+      full_name:
+        maxLength: 100
+        minLength: 3
+        type: string
+      gender:
+        enum:
+        - male
+        - female
+        - other
+        type: string
+      is_active:
+        type: boolean
+      relationship:
+        enum:
+        - child
+        - spouse
+        - parent
+        - other
+        type: string
+    type: object
+  dtos.UpdateDistritoDTO:
+    properties:
+      municipio_id:
+        type: string
+      nome:
+        maxLength: 100
+        minLength: 2
+        type: string
+    type: object
+  dtos.UpdateEducationDTO:
+    properties:
+      degree:
+        maxLength: 50
+        minLength: 2
+        type: string
+      description:
+        maxLength: 255
+        type: string
+      end_date:
+        type: string
+      field_of_study:
+        type: string
+      institution:
+        maxLength: 100
+        minLength: 3
+        type: string
+      start_date:
+        type: string
+    type: object
+  dtos.UpdateEmployeeDTO:
+    properties:
+      address:
+        maxLength: 200
+        minLength: 5
+        type: string
+      contract_type:
+        enum:
+        - permanent
+        - temporary
+        - intern
+        - consultant
+        type: string
+      department_id:
+        type: string
+      district_id:
+        type: string
+      email:
+        type: string
+      iban:
+        maxLength: 34
+        minLength: 10
+        type: string
+      is_active:
+        type: boolean
+      marital_status:
+        enum:
+        - single
+        - married
+        - divorced
+        - widowed
+        type: string
+      phone_number:
+        type: string
+      position_id:
+        type: string
+      salary:
+        type: number
+      supervisor_id:
+        type: string
+    required:
+    - district_id
+    type: object
+  dtos.UpdateEmployeeStatusDTO:
+    properties:
+      end_date:
+        type: string
+      id:
+        type: string
+      reason:
+        maxLength: 255
+        type: string
+      start_date:
+        type: string
+      status:
+        enum:
+        - active
+        - suspended
+        - terminated
+        - retired
+        type: string
+    type: object
+  dtos.UpdateMunicipioDTO:
+    properties:
+      nome:
+        maxLength: 100
+        minLength: 3
+        type: string
+      provincia_id:
+        type: string
+    type: object
+  dtos.UpdatePositionDTO:
+    properties:
+      department_id:
+        type: string
+      nome:
+        maxLength: 100
+        minLength: 2
+        type: string
+    type: object
+  dtos.UpdateProvinceDTO:
+    properties:
+      nome:
+        maxLength: 100
+        minLength: 3
+        type: string
+    required:
+    - nome
+    type: object
+  dtos.UpdateSupervisorDTO:
+    properties:
+      end_date:
+        type: string
+      start_date:
+        type: string
+      supervisor_id:
+        type: string
+    type: object
+  dtos.UpdateWorkDTO:
+    properties:
+      company:
+        maxLength: 100
+        minLength: 2
+        type: string
+      end_date:
+        type: string
+      position:
+        maxLength: 100
+        minLength: 2
+        type: string
+      responsibilities:
+        maxLength: 500
+        type: string
+      start_date:
+        type: string
+    type: object
+  dtos.WorkResponseDTO:
+    properties:
+      company:
+        type: string
+      created_at:
+        type: string
+      employee_id:
+        type: string
+      end_date:
+        type: string
+      id:
+        type: string
+      position:
+        type: string
+      responsibilities:
+        type: string
+      start_date:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entities.Department:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  entities.Dependent:
+    properties:
+      createdAt:
+        type: string
+      dateOfBirth:
+        $ref: '#/definitions/vos.BirthDate'
+      employeeID:
+        type: string
+      fullName:
+        $ref: '#/definitions/vos.PersonalName'
+      gender:
+        $ref: '#/definitions/vos.Gender'
+      id:
+        type: string
+      isActive:
+        type: boolean
+      relationship:
+        $ref: '#/definitions/vos.RelationshipType'
+      updatedAt:
+        type: string
+    type: object
+  entities.District:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      municipalityID:
+        type: string
+      nome:
+        $ref: '#/definitions/vos.District'
+      updatedAt:
+        type: string
+    type: object
+  entities.Document:
+    properties:
+      extension:
+        allOf:
+        - $ref: '#/definitions/vos.FileExtension'
+        description: jpg, pdf, png, etc.
+      fileName:
+        $ref: '#/definitions/vos.Filename'
+      fileURL:
+        $ref: '#/definitions/vos.DocumentURL'
+      id:
+        type: string
+      isActive:
+        type: boolean
+      ownerID:
+        description: ID do proprietário (Employee ou Dependent)
+        type: string
+      ownerType:
+        allOf:
+        - $ref: '#/definitions/vos.DocumentOwnerType'
+        description: '"employee", "dependent", etc.'
+      type:
+        allOf:
+        - $ref: '#/definitions/vos.DocumentType'
+        description: BI, Contrato, Diploma, etc.
+      uploadedAt:
+        type: string
+    type: object
+  entities.EducationHistory:
+    properties:
+      areaEstudoID:
+        type: string
+      createdAt:
+        type: string
+      degree:
+        $ref: '#/definitions/vos.SchoolDegree'
+      description:
+        type: string
+      employeeID:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      institution:
+        type: string
+      isCurrent:
+        type: boolean
+      startDate:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  entities.Employee:
+    properties:
+      address:
+        $ref: '#/definitions/vos.Address'
+      bi:
+        $ref: '#/definitions/vos.BI'
+      contractType:
+        type: string
+      createdAt:
+        type: string
+      dateOfBirth:
+        type: string
+      departmentID:
+        type: string
+      districtID:
+        type: string
+      email:
+        $ref: '#/definitions/vos.Email'
+      employeeNumber:
+        type: integer
+      fullName:
+        $ref: '#/definitions/vos.PersonalName'
+      gender:
+        $ref: '#/definitions/vos.Gender'
+      hiringDate:
+        type: string
+      iban:
+        $ref: '#/definitions/vos.IBAN'
+      id:
+        type: string
+      isActive:
+        type: boolean
+      maritalStatus:
+        $ref: '#/definitions/vos.MaritalStatus'
+      nationality:
+        $ref: '#/definitions/vos.Nationality'
+      phoneNumber:
+        $ref: '#/definitions/vos.PhoneNumber'
+      positionID:
+        type: string
+      salary:
+        $ref: '#/definitions/vos.Salary'
+      socialSecurity:
+        $ref: '#/definitions/vos.SocialSecurity'
+      supervisor_id:
+        description: SupervisorID agora é computado via SupervisorHistory (não persistido
+          diretamente)
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  entities.EmployeeStatus:
+    properties:
+      createdAt:
+        type: string
+      employeeID:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      isCurrent:
+        type: boolean
+      reason:
+        $ref: '#/definitions/vos.StatusReason'
+      startDate:
+        type: string
+      status:
+        $ref: '#/definitions/vos.EmployeeStatus'
+      updatedAt:
+        type: string
+    type: object
+  entities.Municipality:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      nome:
+        $ref: '#/definitions/vos.Municipality'
+      provinceID:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  entities.Position:
+    properties:
+      createdAt:
+        type: string
+      departmentID:
+        type: string
+      id:
+        type: string
+      nome:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  entities.Province:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      nome:
+        $ref: '#/definitions/vos.Province'
+      updatedAt:
+        type: string
+    type: object
+  entities.SupervisorHistory:
+    properties:
+      createdAt:
+        type: string
+      employeeID:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      startDate:
+        type: string
+      supervisorID:
+        description: 'permite null (ex: sem chefe)'
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  entities.WorkHistory:
+    properties:
+      company:
+        type: string
+      createdAt:
+        type: string
+      employeeID:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      isCurrent:
+        type: boolean
+      position:
+        type: string
+      responsibilities:
+        type: string
+      startDate:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  utils.FieldError:
+    properties:
+      field:
+        type: string
+      label:
+        type: string
+      message:
+        type: string
+      tag:
+        type: string
+      value: {}
+    type: object
+  utils.Payload:
+    properties:
+      error:
+        description: 'ex: validation_failed, conflict, internal'
+        type: string
+      fields:
+        description: detalhes por campo
+        items:
+          $ref: '#/definitions/utils.FieldError'
+        type: array
+      message:
+        description: resumo humanizado
+        type: string
+    type: object
+  vos.Address:
+    type: object
+  vos.BI:
+    type: object
+  vos.BirthDate:
+    type: object
+  vos.District:
+    type: object
+  vos.DocumentOwnerType:
+    enum:
+    - employee
+    - dependent
+    type: string
+    x-enum-varnames:
+    - DocumentOwnerEmployee
+    - DocumentOwnerDependent
+  vos.DocumentType:
+    type: object
+  vos.DocumentURL:
+    type: object
+  vos.Email:
+    type: object
+  vos.EmployeeStatus:
+    type: object
+  vos.FileExtension:
+    type: object
+  vos.Filename:
+    type: object
+  vos.Gender:
+    type: object
+  vos.IBAN:
+    type: object
+  vos.MaritalStatus:
+    type: object
+  vos.Municipality:
+    type: object
+  vos.Nationality:
+    type: object
+  vos.PersonalName:
+    type: object
+  vos.PhoneNumber:
+    type: object
+  vos.Province:
+    type: object
+  vos.RelationshipType:
+    type: object
+  vos.Salary:
+    type: object
+  vos.SchoolDegree:
+    type: object
+  vos.SocialSecurity:
+    type: object
+  vos.StatusReason:
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: suporte@empresa.com
+    name: Equipa de Desenvolvimento
+  description: API de Gestão de Recursos Humanos (Províncias, Municípios, Departamentos,
+    etc.)
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://localhost:8080/terms
+  title: HRMS API
+  version: "1.0"
+paths:
+  /areas-estudo:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.AreaEstudoResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar todas as áreas de estudo
+      tags:
+      - Áreas de Estudo
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova área de estudo com nome e descrição obrigatórios.
+      parameters:
+      - description: Dados da Área de Estudo
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateAreaEstudoDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.AreaEstudoResponseDTO'
+        "400":
+          description: Validation error with fields detail
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflito (chave única)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Erro interno
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar nova Área de Estudo
+      tags:
+      - Áreas de Estudo
+  /areas-estudo/{id}:
+    delete:
+      description: Remove uma área de estudo pelo ID.
+      parameters:
+      - description: ID da área de estudo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Removido com sucesso
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Excluir área de estudo
+      tags:
+      - Áreas de Estudo
+    get:
+      parameters:
+      - description: ID da área de estudo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.AreaEstudoResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Obter área de estudo por ID
+      tags:
+      - Áreas de Estudo
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID da área de estudo
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateAreaEstudoDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.AreaEstudoResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar área de estudo
+      tags:
+      - Áreas de Estudo
+  /areas_estudo/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca áreas de estudo com texto, filtros e paginação
+      parameters:
+      - description: Texto de busca (nome da área)
+        in: query
+        name: search
+        type: string
+      - description: Filtro (campo genérico ou avançado)
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.AreaEstudoResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar áreas de estudo
+      tags:
+      - Áreas de Estudo
+  /departments:
+    get:
+      description: Retorna uma lista de todos os departamentos cadastrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.DepartmentResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar todos os departamentos
+      tags:
+      - Departamentos
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo departamento com nome único
+      parameters:
+      - description: Dados do departamento
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateDepartmentDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.DepartmentResponseDTO'
+        "400":
+          description: Validation error with fields detail
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflito (chave única)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Erro interno
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar novo departamento
+      tags:
+      - Departamentos
+  /departments/{id}:
+    delete:
+      description: Exclui um departamento existente pelo ID
+      parameters:
+      - description: ID do departamento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Erro de validação padronizado (UUID inválido, departamento
+            não encontrada, etc.)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover departamento
+      tags:
+      - Departamentos
+    get:
+      description: Retorna os dados de um departamento específico
+      parameters:
+      - description: ID do departamento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DepartmentResponseDTO'
+        "400":
+          description: Erro de validação padronizado (UUID inválido, departamento
+            não encontrado, etc.)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar departamento por ID
+      tags:
+      - Departamentos
+    put:
+      consumes:
+      - application/json
+      description: Actualiza os dados de um departamento existente
+      parameters:
+      - description: ID do departamento
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateDepartmentDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DepartmentResponseDTO'
+        "400":
+          description: Erro de validação padronizado
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Actualizar departamento
+      tags:
+      - Departamentos
+  /departments/{id}/aggregate:
+    get:
+      parameters:
+      - description: ID do Departamento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/agregados.OrgStructureAggregate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar departamento com posições e funcionários
+      tags:
+      - Agregados
+  /departments/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca departamentos com filtros e paginação
+      parameters:
+      - description: Texto de busca (nome do departamento)
+        in: query
+        name: search
+        type: string
+      - description: Filtro genérico
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.DepartmentResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar departamentos
+      tags:
+      - Departamentos
+  /dependents:
+    get:
+      parameters:
+      - description: ID do funcionário
+        in: query
+        name: employee_id
+        required: true
+        type: string
+      - description: Limite
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.DependentResponseDTO'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar dependentes por funcionário
+      tags:
+      - Dependentes
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dados do dependente
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateDependentDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.DependentResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar dependente
+      tags:
+      - Dependentes
+  /dependents/{id}:
+    delete:
+      parameters:
+      - description: ID do dependente
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Deletar dependente
+      tags:
+      - Dependentes
+    get:
+      parameters:
+      - description: ID do dependente
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DependentResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar dependente por ID
+      tags:
+      - Dependentes
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID do dependente
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados do dependente
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateDependentDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DependentResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar dependente
+      tags:
+      - Dependentes
+  /districts:
+    get:
+      description: Retorna uma lista com todos os distritos cadastrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.DistritoResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Lista todos os distritos
+      tags:
+      - Distritos
+    post:
+      consumes:
+      - application/json
+      description: Registra um novo distrito associado a um município
+      parameters:
+      - description: Dados do distrito
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateDistritoDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.DistritoResponseDTO'
+        "400":
+          description: Validation error with fields detail
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflito (chave única)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Erro interno
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Cria um novo distrito
+      tags:
+      - Distritos
+  /districts/{id}:
+    delete:
+      description: Exclui um distrito pelo ID
+      parameters:
+      - description: ID do distrito
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remove um distrito
+      tags:
+      - Distritos
+    get:
+      description: Retorna os dados de um distrito específico
+      parameters:
+      - description: ID do distrito
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DistritoResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Busca um distrito pelo ID
+      tags:
+      - Distritos
+    put:
+      consumes:
+      - application/json
+      description: Modifica o nome e/ou município de um distrito existente
+      parameters:
+      - description: ID do distrito
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateDistritoDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DistritoResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualiza os dados de um distrito
+      tags:
+      - Distritos
+  /districts/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca distritos com texto, filtros e paginação
+      parameters:
+      - description: Texto de busca (nome do distrito)
+        in: query
+        name: search
+        type: string
+      - description: Filtro por nome do município
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.DistritoResultDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar distritos
+      tags:
+      - Distritos
+  /documents:
+    get:
+      description: Retorna os documentos pertencentes ao **owner_id** informado, ordenados
+        por *type ASC* e *uploaded_at DESC*.
+      parameters:
+      - description: UUID do proprietário (owner)
+        in: query
+        name: owner_id
+        required: true
+        type: string
+      - description: 'Limite de resultados (ex.: 20)'
+        in: query
+        name: limit
+        type: integer
+      - description: 'Offset para paginação (ex.: 0)'
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.DocumentResponseDTO'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Lista documentos de um proprietário (com paginação)
+      tags:
+      - Documentos
+  /documents/{id}:
+    delete:
+      parameters:
+      - description: ID do documento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remove um documento (S3 + BD)
+      tags:
+      - Documentos
+    get:
+      parameters:
+      - description: ID do documento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DocumentResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Busca um documento pelo ID
+      tags:
+      - Documentos
+  /documents/{id}/download:
+    get:
+      parameters:
+      - description: ID do documento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Faz stream do documento armazenado (útil para objetos privados)
+      tags:
+      - Documentos
+  /documents/{id}/file:
+    put:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: ID do documento
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Novo ficheiro
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DocumentResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Substitui o ficheiro do documento (upload novo, atualiza BD e apaga
+        o antigo)
+      tags:
+      - Documentos
+  /documents/aggregate:
+    get:
+      parameters:
+      - description: employee ou dependent
+        in: query
+        name: owner_type
+        required: true
+        type: string
+      - description: UUID do proprietário
+        in: query
+        name: owner_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/agregados.DocumentAggregate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar documentos por proprietário
+      tags:
+      - Agregados
+  /documents/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Sobe ficheiro ao S3 e cria registo no BD.
+      parameters:
+      - description: 'ex.: employee, dependent'
+        in: formData
+        name: owner_type
+        required: true
+        type: string
+      - description: UUID do dono
+        in: formData
+        name: owner_id
+        required: true
+        type: string
+      - description: Tipo lógico do documento (BI, Contrato, etc.)
+        in: formData
+        name: type
+        required: true
+        type: string
+      - description: Ficheiro
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.DocumentResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "413":
+          description: Request Entity Too Large
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Upload de documento (S3 + BD)
+      tags:
+      - Documentos
+  /education:
+    get:
+      parameters:
+      - description: ID do funcionário
+        in: query
+        name: employee_id
+        required: true
+        type: string
+      - description: Limite de resultados
+        in: query
+        name: limit
+        type: integer
+      - description: Offset de paginação
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.EducationResponseDTO'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar históricos educacionais por funcionário
+      tags:
+      - Education
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dados do histórico educacional
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateEducationDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.EducationResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar histórico educacional
+      tags:
+      - Education
+  /education/{id}:
+    delete:
+      parameters:
+      - description: ID do histórico
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover histórico educacional
+      tags:
+      - Education
+    get:
+      parameters:
+      - description: ID do histórico
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.EducationResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar histórico por ID
+      tags:
+      - Education
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID do histórico
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateEducationDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.EducationResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar histórico educacional
+      tags:
+      - Education
+  /employee-status:
+    get:
+      parameters:
+      - description: ID do funcionário
+        in: query
+        name: employee_id
+        required: true
+        type: string
+      - description: Limite de resultados
+        in: query
+        name: limit
+        type: integer
+      - description: Offset de paginação
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.EmployeeStatusResponseDTO'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar status de funcionário
+      tags:
+      - EmployeeStatus
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dados do status
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateEmployeeStatusDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.EmployeeStatusResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar status de funcionário
+      tags:
+      - EmployeeStatus
+  /employee-status/{id}:
+    delete:
+      parameters:
+      - description: ID do status
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover status
+      tags:
+      - EmployeeStatus
+    get:
+      parameters:
+      - description: ID do status
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.EmployeeStatusResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar status por ID
+      tags:
+      - EmployeeStatus
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID do status
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Atualização
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateEmployeeStatusDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.EmployeeStatusResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar status
+      tags:
+      - EmployeeStatus
+  /employees:
+    get:
+      description: Retorna uma lista paginada de funcionários
+      parameters:
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.EmployeeResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Lista funcionários
+      tags:
+      - Funcionários
+    post:
+      consumes:
+      - application/json
+      description: Registra um novo funcionário no sistema com todos os dados obrigatórios
+      parameters:
+      - description: Dados do funcionário
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateEmployeeDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.EmployeeResponseDTO'
+        "400":
+          description: Validação dos campos (Fields detalhados)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflito (chave única)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Erro interno
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Cria um novo funcionário
+      tags:
+      - Funcionários
+  /employees/{employee_id}/work_history:
+    get:
+      parameters:
+      - description: ID do Funcionário
+        in: path
+        name: employee_id
+        required: true
+        type: string
+      - description: Limite
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.WorkResponseDTO'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar históricos profissionais de um funcionário
+      tags:
+      - Histórico Profissional
+  /employees/{id}:
+    delete:
+      description: Exclui um funcionário pelo ID
+      parameters:
+      - description: ID do funcionário
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remove um funcionário
+      tags:
+      - Funcionários
+    get:
+      description: Retorna os dados de um funcionário específico
+      parameters:
+      - description: ID do funcionário
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.EmployeeResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Busca um funcionário pelo ID
+      tags:
+      - Funcionários
+    put:
+      consumes:
+      - application/json
+      description: Modifica os dados de um funcionário existente
+      parameters:
+      - description: ID do funcionário
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateEmployeeDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.EmployeeResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualiza os dados de um funcionário
+      tags:
+      - Funcionários
+  /employees/{id}/aggregate:
+    get:
+      parameters:
+      - description: ID do Funcionário
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/agregados.EmployeeAggregate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar dados completos de um funcionário
+      tags:
+      - Agregados
+  /employees/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca funcionários com texto, filtros e paginação
+      parameters:
+      - description: Texto de busca (nome, email, nº funcionário, etc.)
+        in: query
+        name: search
+        type: string
+      - description: 'Filtro avançado (ex.: dept:UUID, pos:UUID, ativo:true)'
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.EmployeeResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar funcionários
+      tags:
+      - Funcionários
+  /municipalities:
+    get:
+      description: Retorna todos os municípios cadastrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.MunicipioResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Lista todos os municípios
+      tags:
+      - Municípios
+    post:
+      consumes:
+      - application/json
+      description: Registra um novo município associado a uma província
+      parameters:
+      - description: Dados do município
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateMunicipioDoc'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.MunicipioResponseDTO'
+        "400":
+          description: Validation error with fields detail
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflito (chave única)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Erro interno
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Cria um novo município
+      tags:
+      - Municípios
+  /municipalities/{id}:
+    delete:
+      description: Exclui um município pelo ID
+      parameters:
+      - description: ID do município (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover um município
+      tags:
+      - Municípios
+    get:
+      description: Retorna os dados de um município específico
+      parameters:
+      - description: ID do município
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.MunicipioResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Busca um município pelo ID
+      tags:
+      - Municípios
+    put:
+      consumes:
+      - application/json
+      description: Modifica o nome ou província associada a um município existente
+      parameters:
+      - description: ID do município
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateMunicipioDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.MunicipioResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualiza os dados de um município
+      tags:
+      - Municípios
+  /municipalities/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca municípios com filtros e paginação
+      parameters:
+      - description: Texto de busca (nome do município)
+        in: query
+        name: search
+        type: string
+      - description: Filtro por nome da província
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.MunicipioResultDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar municípios
+      tags:
+      - Municípios
+  /positions:
+    get:
+      description: Lista todas as posições cadastradas
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.PositionResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar posições
+      tags:
+      - Posições
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova posição (cargo) associada a um departamento
+      parameters:
+      - description: Dados da posição
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreatePositionDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.PositionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar nova posição
+      tags:
+      - Posições
+  /positions/{id}:
+    delete:
+      description: Remove uma posição com base no ID
+      parameters:
+      - description: ID da posição
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover posição
+      tags:
+      - Posições
+    get:
+      description: Retorna os dados de uma posição específica
+      parameters:
+      - description: ID da posição
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.PositionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar posição por ID
+      tags:
+      - Posições
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os dados de uma posição existente
+      parameters:
+      - description: ID da posição
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Campos atualizados
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdatePositionDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.PositionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar posição
+      tags:
+      - Posições
+  /positions/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca cargos/posições com filtros e paginação
+      parameters:
+      - description: Texto de busca (nome da posição)
+        in: query
+        name: search
+        type: string
+      - description: Filtro por nome do departamento
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.PositionResultDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar posições
+      tags:
+      - Posições
+  /provinces:
+    get:
+      description: Retorna a lista de todas as províncias cadastradas
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.ProvinceResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Listar Províncias
+      tags:
+      - Províncias
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova província
+      parameters:
+      - description: Dados da província
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateProvinceDoc'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.ProvinceResponseDTO'
+        "400":
+          description: Validation error with fields detail
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflito (chave única)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Erro interno
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar Província
+      tags:
+      - Províncias
+  /provinces/{id}:
+    delete:
+      description: Remove uma província existente pelo ID.
+      parameters:
+      - description: ID da província (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Erro de validação padronizado (UUID inválido, província não
+            encontrada, etc.)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover Província
+      tags:
+      - Províncias
+    get:
+      description: Retorna os dados de uma província pelo seu ID
+      parameters:
+      - description: ID da província
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.ProvinceResponseDTO'
+        "400":
+          description: Erro de validação padronizado (UUID inválido, província não
+            encontrada, etc.)
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar Província por ID
+      tags:
+      - Províncias
+    put:
+      consumes:
+      - application/json
+      description: Atualiza o nome de uma província existente.
+      parameters:
+      - description: ID da província (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Payload com o campo 'nome'
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateProvinceDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.ProvinceResponseDTO'
+        "400":
+          description: Erro de validação padronizado
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar Província
+      tags:
+      - Províncias
+  /provinces/{id}/aggregate:
+    get:
+      parameters:
+      - description: ID da Província
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/agregados.LocationAggregate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar província com municípios e distritos
+      tags:
+      - Agregados
+  /provinces/search:
+    get:
+      consumes:
+      - application/json
+      description: Busca províncias com filtros e paginação
+      parameters:
+      - description: Texto de busca (nome da província)
+        in: query
+        name: search
+        type: string
+      - description: Filtro genérico
+        in: query
+        name: filter
+        type: string
+      - description: Número máximo de registros a retornar
+        in: query
+        name: limit
+        type: integer
+      - description: Número de registros a ignorar (para paginação)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.ProvinceResponseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar províncias
+      tags:
+      - Províncias
+  /supervisors:
+    get:
+      description: Lista o histórico de supervisores por funcionário (paginação via
+        query params)
+      parameters:
+      - description: ID do funcionário
+        in: query
+        name: employee_id
+        required: true
+        type: string
+      - description: Limite
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.SupervisorResponseDTO'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Lista vínculos de supervisão de um funcionário
+      tags:
+      - Supervisores
+    post:
+      consumes:
+      - application/json
+      description: Cria uma relação (SupervisorHistory) entre um funcionário e seu
+        supervisor, com período de vigência
+      parameters:
+      - description: Dados do vínculo
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateSupervisorDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.SupervisorResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Registra um vínculo de supervisão
+      tags:
+      - Supervisores
+  /supervisors/{id}:
+    delete:
+      description: Exclui um vínculo de supervisão pelo ID
+      parameters:
+      - description: ID do vínculo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remove um vínculo de supervisão
+      tags:
+      - Supervisores
+    get:
+      description: Retorna os dados de um vínculo específico
+      parameters:
+      - description: ID do vínculo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.SupervisorResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Busca um vínculo de supervisão pelo ID
+      tags:
+      - Supervisores
+    put:
+      consumes:
+      - application/json
+      description: Atualiza supervisor e/ou período de vigência de um vínculo existente
+      parameters:
+      - description: ID do vínculo
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateSupervisorDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.SupervisorResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualiza um vínculo de supervisão
+      tags:
+      - Supervisores
+  /work_history:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dados do histórico profissional
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateWorkDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.WorkResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Criar novo histórico profissional
+      tags:
+      - Histórico Profissional
+  /work_history/{id}:
+    delete:
+      parameters:
+      - description: ID do histórico
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Remover histórico profissional
+      tags:
+      - Histórico Profissional
+    get:
+      parameters:
+      - description: ID do histórico
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.WorkResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Buscar histórico profissional por ID
+      tags:
+      - Histórico Profissional
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID do histórico
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Campos a atualizar
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateWorkDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.WorkResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Payload'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Payload'
+      summary: Atualizar histórico profissional
+      tags:
+      - Histórico Profissional
+schemes:
+- http
+swagger: "2.0"
