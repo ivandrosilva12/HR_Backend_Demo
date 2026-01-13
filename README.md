@@ -7,6 +7,6 @@ Para correr a aplicação, execute os seguintes comandos:
 - make up
 - make migrate_up
 
-Para ter acesso aos endpoints da aplicação, abra uma janela no browser com a url:
+Para ter acesso aos endpoints da aplicação, abra uma janela no browser com a seguinte url:
 - http://localhost:8080/swagger/index.html
 
